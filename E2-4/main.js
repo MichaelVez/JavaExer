@@ -28,4 +28,3 @@ function todayIs() {
     month[d1.getMonth()]
   }, ${d1.getFullYear()} `;
 }
-console.log(todayIs());
