@@ -12,6 +12,14 @@ function sumOfEvenReduce(arr) {
   }, 0);
 }
 const asd2 = sumOfEvenReduce([1, 2, 3, 2, 4, 5, 4]);
+
+function averageReduce(arr) {
+  return arr.reduce(function (tot, el, index) {
+    tot = tot + el;
+    if (index === arr.length - 1) tot = tot / (index + 1);
+    return tot;
+  }, 0);
+}
 function countOnlyVowels(arr) {
   return arr.split("").reduce(function (acc, el) {
     let vowel = "aouie";
@@ -32,4 +40,4 @@ let myarrofobj = [
   { name: "mikke", age: 26 },
 ];
 addKeyAndValue(myarrofobj, "alive", "yes");
-console.log(myarrofobj);
+// console.log(myarrofobj);
