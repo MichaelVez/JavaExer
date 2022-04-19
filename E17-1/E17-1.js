@@ -8,3 +8,22 @@ function someFunction(number) {
 }
 var firstResult = someFunction(9);
 var result = firstResult(2);
+console.log(result); //5
+
+var a = 1;
+function b2() {
+  a = 10;
+  console.log(a); //10
+  return;
+  function a() {}
+}
+b2();
+console.log(a); //1 because of scope
+
+let i;
+for (i = 0; i < 3; i++) {
+  const log = () => {
+    console.log(i);
+  };
+  setTimeout(log, 100);
+}
