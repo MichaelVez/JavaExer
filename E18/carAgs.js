@@ -932,6 +932,138 @@ const carMarket = {
 //?   @param {number} - toYear - Will display vehicles up to this year
 //?   @param {boolean} - isAscendingOrder - true for ascending order, false for descending order
 //?   @return {object[]} - arrayOfModels - array of sorted cars
+carMarket.sortAndFilterByYearOfProduction = function (
+  arrOfCars,
+  fromYear,
+  toYear,
+  isAscendingOrder
+) {
+  let myarrofobj = [];
+  for (let item of arrOfCars) {
+    for (car of item.models) {
+      if (car.year >= fromYear && car.year <= toYear) myarrofobj.push(car);
+    }
+  }
+  myarrofobj = myarrofobj.sort(function (a, b) {
+    return a.year - b.year;
+  });
+  if (isAscendingOrder) return myarrofobj.reverse();
+  return myarrofobj;
+};
+const arr4test = [
+  {
+    brand: "bmw",
+    models: [
+      {
+        name: "3",
+        year: 2015,
+        price: 137000,
+        carNumber: "AZJZ4",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "X6",
+        year: 2020,
+        price: 966500,
+        carNumber: "S6DL1",
+        ownerId: "Plyq5M5AZ",
+      },
+    ],
+  },
+  {
+    brand: "toyota",
+    models: [
+      {
+        name: "Land Cruiser",
+        year: 2020,
+        price: 336300,
+        carNumber: "6rvXw",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "Hilux",
+        year: 2005,
+        price: 35005,
+        carNumber: "MWXBG",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "Corolla",
+        year: 2020,
+        price: 111900,
+        carNumber: "hCzl-",
+        ownerId: "Plyq5M5AZ",
+      },
+    ],
+  },
+  {
+    brand: "Ford",
+    models: [
+      {
+        name: "Focus",
+        year: 2020,
+        price: 98200,
+        carNumber: "kN3HP",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "Focus",
+        year: 2005,
+        price: 6502,
+        carNumber: "LJTCs",
+        ownerId: "Plyq5M5AZ",
+      },
+    ],
+  },
+  {
+    brand: "Alpha romeo",
+    models: [
+      {
+        name: "Romeo Julia",
+        year: 2020,
+        price: 275406,
+        carNumber: "2kjy7",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "Romeo Stelvio",
+        year: 2019,
+        price: 215403,
+        carNumber: "7A5b-",
+        ownerId: "Plyq5M5AZ",
+      },
+    ],
+  },
+  {
+    brand: "Chevrolet",
+    models: [
+      {
+        name: "Traverse",
+        year: 2020,
+        price: 201102,
+        carNumber: "QwBOT",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "Impala",
+        year: 2019,
+        price: 165041,
+        carNumber: "2v4jt",
+        ownerId: "Plyq5M5AZ",
+      },
+      {
+        name: "Malibu",
+        year: 2017,
+        price: 75405,
+        carNumber: "O4_Jv",
+        ownerId: "Plyq5M5AZ",
+      },
+    ],
+  },
+];
+// console.log(
+//   carMarket.sortAndFilterByYearOfProduction(arr4test, 2017, 2019, false)
+// );
 
 //* 3) sortAndFilterByPrice
 //?   filter and Sort in a Ascending or Descending order all vehicles for sale by price of the cars.
@@ -940,7 +1072,25 @@ const carMarket = {
 //?   @param {number} - fromPrice - Will display vehicles up to this price
 //?   @param {boolean} - isAscendingOrder - true for ascending order, false for descending order
 //?   @return {object[]} - arrayOfModels - array of sorted cars
-
+carMarket.sortAndFilterByPrice = function (
+  arrOfCars,
+  fromPrice,
+  toPrice,
+  isAscendingOrder
+) {
+  let myarrofobj = [];
+  for (let item of arrOfCars) {
+    for (car of item.models) {
+      if (car.price >= fromPrice && car.price <= toPrice) myarrofobj.push(car);
+    }
+  }
+  myarrofobj = myarrofobj.sort(function (a, b) {
+    return a.price - b.price;
+  });
+  if (isAscendingOrder) return myarrofobj.reverse();
+  return myarrofobj;
+};
+// console.log(carMarket.sortAndFilterByPrice(arr4test, 165040, 215404, true));
 //* 4 ) searchCar
 //?   @param {object[]} - arrOfCars - array of cars
 //?   @param {number} - fromYear - Will display vehicles starting this year
@@ -948,7 +1098,36 @@ const carMarket = {
 //?   @param {number} - fromPrice - Will display vehicles starting at this price
 //?   @param {number} - fromPrice - Will display vehicles up to this price
 //?   optional @param {string} - brand - Look only for cars of this brand
+carMarket.searchCar = function (
+  arrOfCars,
+  fromYear,
+  toYear,
+  fromPrice,
+  toPrice,
+  brand
+) {
+  let myarrofobj = carMarket.sortAndFilterByPrice(
+    arrOfCars,
+    fromPrice,
+    toPrice,
+    true
+  );
+  myarrofobj2 = carMarket.sortAndFilterByYearOfProduction(
+    arrOfCars,
+    fromYear,
+    toYear,
+    true
+  );
+  console.log(myarrofobj);
+  console.log(myarrofobj2);
+  console.log("array3");
+  let arr3 = [];
 
+  return arr3;
+};
+console.log(
+  carMarket.searchCar(arr4test, 2005, 2017, 137001, 215404, "toyota")
+);
 //* 5 ) sellCar
 //?   Sell ​​a car to a specific customer
 //?   @param {string} - agencyId
