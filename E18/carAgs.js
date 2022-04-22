@@ -1176,7 +1176,6 @@ carMarket.searchCar = function (
 //!      - Try to divide the tasks into several functions and try to maintain a readable language.
 carMarket.sellCar = function (agencyId, customerId, carModel) {
   let exist = false;
-  console.log(carModel);
   for (let agency of this.sellers) {
     if (agency.agencyId === agencyId) {
       for (let cars of agency.cars) {
