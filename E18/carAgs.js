@@ -687,7 +687,7 @@ const carMarket = {
   },
   getAllCustomerCars: function (id) {
     for (let person of this.customers) {
-      if (person.id === id) console.log(person.cars);
+      if (person.id === id) return person.cars;
     }
   },
   getCustomerCash: function (id) {
@@ -791,8 +791,19 @@ const carMarket = {
       }
     }
   },
+  getBrandName: function (name) {
+    for (let agency of this.sellers) {
+      for (let car of agency.cars) {
+        for (let model of car.models) {
+          if (model.name === name) {
+            return car.brand;
+          }
+        }
+      }
+    }
+  },
 };
-
+carMarket.getBrandName();
 //! agency's func's
 //todo getters
 
@@ -950,7 +961,7 @@ carMarket.sortAndFilterByYearOfProduction = function (
   if (isAscendingOrder) return myarrofobj.reverse();
   return myarrofobj;
 };
-const arr4test = [
+const arrofcars = [
   {
     brand: "bmw",
     models: [
@@ -1061,9 +1072,10 @@ const arr4test = [
     ],
   },
 ];
-// console.log(
-//   carMarket.sortAndFilterByYearOfProduction(arr4test, 2017, 2019, false)
-// );
+// console
+//   .log
+// carMarket.sortAndFilterByYearOfProduction(arr4test, 1, 2012, false)
+//   ();
 
 //* 3) sortAndFilterByPrice
 //?   filter and Sort in a Ascending or Descending order all vehicles for sale by price of the cars.
@@ -1090,7 +1102,7 @@ carMarket.sortAndFilterByPrice = function (
   if (isAscendingOrder) return myarrofobj.reverse();
   return myarrofobj;
 };
-// console.log(carMarket.sortAndFilterByPrice(arr4test, 165040, 215404, true));
+// console.log(carMarket.sortAndFilterByPrice(arr4test, 50000, 100000, true));
 //* 4 ) searchCar
 //?   @param {object[]} - arrOfCars - array of cars
 //?   @param {number} - fromYear - Will display vehicles starting this year
@@ -1106,28 +1118,42 @@ carMarket.searchCar = function (
   toPrice,
   brand
 ) {
+  this.setPropertyBrandToAllCars();
   let myarrofobj = carMarket.sortAndFilterByPrice(
     arrOfCars,
     fromPrice,
     toPrice,
     true
   );
+  // console.log(myarrofobj);
   myarrofobj2 = carMarket.sortAndFilterByYearOfProduction(
     arrOfCars,
     fromYear,
     toYear,
     true
   );
-  console.log(myarrofobj);
-  console.log(myarrofobj2);
-  console.log("array3");
-  let arr3 = [];
 
-  return arr3;
+  let arr3 = [];
+  for (let i = 0; i < myarrofobj.length; i++) {
+    for (let j = 0; j < myarrofobj2.length; j++) {
+      if (
+        myarrofobj[i].name === myarrofobj2[j].name &&
+        myarrofobj[i].year === myarrofobj2[j].year
+      ) {
+        arr3.push(myarrofobj[i]);
+      }
+    }
+  }
+  let arr4 = [];
+  if (brand !== undefined)
+    for (let i = 0; i < arr3.length; i++) {
+      if (carMarket.getBrandName(arr3[i].name) === brand) arr4.push(arr3[i]);
+    }
+  return arr4;
 };
-console.log(
-  carMarket.searchCar(arr4test, 2005, 2017, 137001, 215404, "toyota")
-);
+// console.log(
+//   carMarket.searchCar(arrofcars, 2010, 2020, 1000, 100000, "Chevrolet")
+// );
 //* 5 ) sellCar
 //?   Sell ​​a car to a specific customer
 //?   @param {string} - agencyId
@@ -1148,3 +1174,45 @@ console.log(
 // !     - Check that the customer has enough money to purchase the vehicle, if not return 'The customer does not have enough money'
 
 //!      - Try to divide the tasks into several functions and try to maintain a readable language.
+carMarket.sellCar = function (agencyId, customerId, carModel) {
+  let exist = false;
+  console.log(carModel);
+  for (let agency of this.sellers) {
+    if (agency.agencyId === agencyId) {
+      for (let cars of agency.cars) {
+        for (let car of cars.models) {
+          if (car.name === carModel.name && car.year === carModel.year)
+            exist = true;
+        }
+      }
+    }
+  }
+  if (!exist) {
+    console.log("car dont exist");
+    return null;
+  }
+  if (carMarket.getCustomerCash(customerId) < carModel.price) {
+    console.log("not enough cash");
+    return null;
+  }
+  // custumer
+  let cartax = carModel.price * 0.17;
+  for (let customer of this.customers) {
+    if (customer.id === customerId) {
+      customer.cash = customer.cash - carModel.price - cartax;
+      customer.cars.push(carModel);
+      customer.cars[customer.cars.length - 1].ownerId = customer.id;
+    }
+  }
+  // agency
+  carMarket.decrementOrIncrementCashOfAgency(agencyId, carModel.price);
+  carMarket.deleteCarFromAgency(agencyId, carModel.carNumber);
+
+  //tax
+  carMarket.taxesAuthority.totalTaxesPaid += cartax;
+  carMarket.taxesAuthority.sumOfAllTransactions += carModel.price + cartax;
+  carMarket.taxesAuthority.numberOfTransactions += 1;
+};
+console.log(
+  carMarket.sellCar("Plyq5M5AZ", "2RprZ1dbL", arrofcars[0].models[0])
+);
