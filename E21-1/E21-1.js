@@ -17,6 +17,7 @@ function myFnc() {
     myH1.innerText = "Over 18";
   }
   if (parseInt(input[0].value) !== NaN && parseInt(input[0].value) < 18) {
+    myH1.style.color = "red";
     myH1.innerText = "Under 18";
   }
 }
