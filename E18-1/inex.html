@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" / >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Header</h1>
+    <p>Paragraph</p>
+    <a href="#">link</a>
+    <img src="" alt="" />
+    <div class="x">Div with a class</div>
+    <div id="y">Div with an id</div>
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+  </body>
+  <script>
+    //your js code here
+    let html = document.getElementsByTagName("html");
+    console.log(html);
+    let head = document.getElementsByTagName("head");
+    console.log(head);
+    let meta = document.getElementsByTagName("meta");
+    console.log(meta);
+    let title = document.getElementsByTagName("title");
+    console.log(title);
+    let body = document.getElementsByTagName("body");
+    console.log(body);
+    let h1 = document.getElementsByTagName("h1");
+    console.log(h1);
+    let p = document.getElementsByTagName("p");
+    console.log(p);
+    let a = document.getElementsByTagName("a");
+    console.log(a);
+    let img = document.getElementsByTagName("img");
+    console.log(img);
+    let div = document.getElementsByTagName("div");
+    console.log(div);
+    let input = document.getElementsByTagName("input");
+    console.log(input);
+
+    let html2 = document.querySelector("html");
+    console.log(html2);
+    let head2 = document.querySelector("head");
+    console.log(head2);
+    let body2 = document.querySelector("body");
+    console.log(body2);
+
+    let input2 = [...document.getElementsByTagName("input")];
+    console.log(input2);
+    input2.forEach((el) => {
+      console.log(el);
+    });
+    let input3 = document.querySelectorAll("input");
+    input3.forEach((el) => {
+      console.log(el);
+    });
+    let input4 = document.getElementsByTagName("input");
+    console.log(input4);
+  </script>
+</html>
