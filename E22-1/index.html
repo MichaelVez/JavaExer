@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My From</title>
+    <style>
+      form {
+        background-color: plum;
+        border: 1px solid;
+        max-width: 960px;
+        text-align: center;
+        margin: auto;
+        position: relative;
+      }
+      label {
+        width: 200px;
+        display: inline-block;
+        font-size: 25px;
+      }
+      div {
+        position: absolute;
+        top: 20%;
+        left: 35%;
+        background-color: rgba(0, 191, 255, 0.75);
+        width: 500px;
+        height: 300px;
+        border-radius: 30px;
+        text-align: center;
+        z-index: 3;
+        display: none;
+      }
+      .darken {
+        display: none;
+        height: 100%;
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="signupform">
+      <label for="name">Full name:</label>
+      <input type="text" name="" id="name" />
+      <br />
+      <label for="age">age:</label>
+      <input type="number" id="age" />
+      <br />
+      <label for="mail">email:</label>
+      <input type="email" id="mail" />
+      <br />
+      <label for="adress">adress:</label>
+      <input type="text" name="" id="adress" />
+      <br />
+      <label for="checkbox">I agree to the stuff?</label>
+      <input type="checkbox" name="" id="checkbox" />
+      <br />
+      <button id="buton">SEND</button>
+    </form>
+    <div id="popup">
+      <h1>Final Information</h1>
+      <h2>Name:</h2>
+      <h2>Age:</h2>
+      <h2>Mail:</h2>
+      <h2>Adress:</h2>
+      <h2>Agree to the stuff</h2>
+      <button id="saveall">Save Changes</button>
+      <button id="change">Change information</button>
+    </div>
+    <div class="darken"></div>
+    <script src="main.js"></script>
+  </body>
+</html>
