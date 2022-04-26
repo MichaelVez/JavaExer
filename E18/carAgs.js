@@ -724,13 +724,13 @@ const carMarket = {
       if (agency.agencyId === id) agency.cars.push(obj);
     }
   },
-  deleteCarFromAgency: function (id, carid) {
+  deleteCarFromAgency: function (id, carId) {
     for (let agency of this.sellers) {
       for (let cars of agency.cars) {
         for (let model of cars.models) {
-          if (model.carNumber === carid && model.ownerId === id) {
+          if (model.carNumber === carId && model.ownerId === id) {
             cars.models = cars.models.filter(function (car1) {
-              return car1.carNumber !== carid;
+              return car1.carNumber !== carId;
             });
           }
         }
