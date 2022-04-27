@@ -4,7 +4,6 @@ let h1 = document.createElement("h1");
 let reset = document.createElement("button");
 reset.textContent = "Play again";
 reset.addEventListener("click", () => {
-  //todo reset
   player1.children[0].classList.add("active");
   player2.children[0].classList.add("active");
   for (let i = 1; i < 12; i++) {

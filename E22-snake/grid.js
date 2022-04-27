@@ -1,0 +1,10 @@
+let Grid_SIZE = 21;
+export function randomGridPosition() {
+  return {
+    x: Math.floor(Math.random() * Grid_SIZE) + 1,
+    y: Math.floor(Math.random() * Grid_SIZE) + 1,
+  };
+}
+export function outsideGrid(pos) {
+  return pos.x < 1 || pos.x > Grid_SIZE || pos.y < 1 || pos.y > Grid_SIZE;
+}
