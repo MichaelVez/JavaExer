@@ -61,8 +61,6 @@ function drawBored(items) {
     row.style.height = `${100}%`;
     document.body.appendChild(row);
 
-    // item.textContent = hair_color;
-
     for (let j = 0; j < arr.length; j++) {
       let item = document.createElement("div");
       item.textContent = arr[j];
